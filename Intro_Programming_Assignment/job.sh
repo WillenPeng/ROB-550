@@ -1,5 +1,5 @@
 #!/bin/bash
-NUM=10
+NUM=1000
 
 python testGen.py $NUM $NUM > A.csv
 python testGen.py $NUM $NUM > B.csv
