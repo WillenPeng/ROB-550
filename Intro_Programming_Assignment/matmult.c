@@ -79,7 +79,7 @@ double* matrix_multiply(double* mat_A, double* mat_B, int row_final, int col_fin
         }
     }
     int64_t time_after = utime_now();
-    printf("operation time: %lld us\n", time_after - time_before);
+    printf("operation time: %ld us\n", time_after - time_before);
     return mat_C;
 }
 
