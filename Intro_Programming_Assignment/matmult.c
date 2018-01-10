@@ -52,21 +52,24 @@ int main(int argc, char *argv[]){
     double* mat_A = readMatrixFromFile(inFileString_A, row_dim_A, col_dim_A);
     double* mat_B = readMatrixFromFile(inFileString_B, row_dim_B, col_dim_B);
 	// C = A*B
-	int64_t time_before = utime_now();
+	  
     double* mat_C = matrix_multiply(mat_A, mat_B, row_dim_C, col_dim_C, col_dim_A);
-    int64_t time_after = utime_now();
-    printf("operation time: %ld us\n", time_after - time_before);
+    
+    
     // write final matrix to csv file
     writeMatrixToFile(outFileString, mat_C, row_dim_C, col_dim_C);
-
+    free(mat_A);
+    free(mat_B);
+    free(mat_C);
     return(0);
     
 }
 
 // matrix multiplication
 double* matrix_multiply(double* mat_A, double* mat_B, int row_final, int col_final, int num_mult) {
-	double* mat_C = (double*) malloc(row_final * col_final * sizeof(double));
-	int i,j,k;
+	  double* mat_C = (double*) malloc(row_final * col_final * sizeof(double));
+	  int i,j,k;
+    int64_t time_before = utime_now();
     for (i = 0; i < row_final; i++){
         for (j = 0; j < col_final; j++){
             mat_C[i*col_final + j] = 0;
@@ -75,7 +78,8 @@ double* matrix_multiply(double* mat_A, double* mat_B, int row_final, int col_fin
             }
         }
     }
-
+    int64_t time_after = utime_now();
+    printf("operation time: %lld us\n", time_after - time_before);
     return mat_C;
 }
 
