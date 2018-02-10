@@ -1,15 +1,23 @@
-step = 1;
+clear all; close all;
+step = 0.1;
 D2R = pi/180;
 figure
 hold on
 for q0 = -pi:step:pi
     for q1 = -121*D2R:step:127*D2R
         for q2 = -121*D2R:step:127*D2R
-            for q3 = -121*D2R:step:107*D2R
-                [x,y,z] = FK(q0,q1,q2,q3);
-                plot3(x,y,z,'ro')
-            end
+%             for q3 = -121*D2R:step:107*D2R
+            [x,y,z] = FK(q0,q1,q2,0);
+            plot(sqrt(x^2+y^2),z,'ro')
+            [x,y,z] = FK(q0,q1,q2,pi/2);
+            plot(sqrt(x^2+y^2),z,'bo')
+%             end
         end
     end
 end
+
+xlabel('d_w [mm]')
+ylabel('Z_w [mm]')
+set(gca,'FontSize', 16)
+legend('\phi = 0','\phi = \pi/2')
 
