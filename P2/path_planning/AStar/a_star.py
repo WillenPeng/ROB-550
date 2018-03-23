@@ -14,17 +14,17 @@ show_animation = True
 
 STEP = 1.0
 MAX_RANGE = 360
-LEN_TO_GATE = 30
+LEN_TO_GATE = 15
 way_point =[]
 TURNING_MAX_RAD = 0.5
 WEIGHTS = 0.1
 LEN_THRE = 25.0
 
 # start and goal position
-sx = 150.0  # [m]
-sy = 90.0  # [m]
-gx = 300.0  # [m]
-gy = 200.0  # [m]
+sx = 180.0  # [m]
+sy = 180.0  # [m]
+gx = 120.0  # [m]
+gy = 20.0  # [m]
 grid_size = 10.0  # [m]
 robot_size = 19.0  # [m]
 
@@ -243,9 +243,9 @@ def create_map(mapfile):
     for i in range(MAX_RANGE+1):
         ox.append(0)
         oy.append(i)
-    for i in range(MAX_RANGE+1):
-        ox.append(i)
-        oy.append(MAX_RANGE+1)
+    # for i in range(MAX_RANGE+1):
+    #     ox.append(i)
+    #     oy.append(MAX_RANGE+1)
     for i in range(MAX_RANGE+1):
         ox.append(MAX_RANGE+1)
         oy.append(i)
@@ -314,6 +314,8 @@ def path_planning_loop(ox, oy, gates):
     # x_half_width, y_half_width
     start_point = np.asarray([sx, sy])
     count = 0
+    rx_all = []
+    ry_all = []
     for each_gate in gates:
         xlen = each_gate[2] - each_gate[0]
         ylen = each_gate[3] - each_gate[1]
@@ -328,7 +330,8 @@ def path_planning_loop(ox, oy, gates):
         rx, ry = a_star_planning(float(start_point[0]), float(start_point[1]), float(enter_point[0]), float(enter_point[1]), ox, oy, grid_size, robot_size)
         turningpoint = getTurningPts(rx, ry,start_point, enter_point, count)
         start_point = center_gate + (perpen_pt - center_gate)/dist_cal(perpen_pt, center_gate)*(-LEN_TO_GATE)
-        
+        rx_all = rx_all + rx[::-1]
+        ry_all = ry_all + ry[::-1]
         if count == 3:
             turningpoint = turningpoint + [[start_point[0], start_point[1]]]
         
@@ -345,7 +348,7 @@ def path_planning_loop(ox, oy, gates):
             plt.plot(rx, ry, "-r")
             # plt.show()
 
-    return way_point
+    return way_point,rx_all, ry_all
 
 
 def main():
@@ -361,7 +364,7 @@ def main():
         plt.grid(True)
         plt.axis("equal")
         # plt.show()
-    way_point = path_planning_loop(ox, oy, gates)
+    way_point,rx_all, ry_all = path_planning_loop(ox, oy, gates)
 
 
     print(way_point)
@@ -386,6 +389,24 @@ def main():
 
     plt.savefig('final')
     plt.close()
+
+    # for report
+    newsx = (np.asarray(sx) - 180)/100
+    newsy = (np.asarray(sy) - 180)/100
+    ox = (np.asarray(ox) - 180)/100
+    oy = (np.asarray(oy) - 180)/100
+    rx_all = (np.asarray(rx_all) - 180)/100
+    ry_all = (np.asarray(ry_all) - 180)/100
+    plt.plot(newsx, newsy, "ob",markersize=8.0, label='start point')
+    plt.plot(ox, oy, ".k")
+    plt.plot(rx_all, ry_all, "-r",linewidth=3.0, label='final path')
+    plt.grid(True)
+    plt.axis("equal")
+    plt.xlabel('x[m]')
+    plt.ylabel('y[m]')
+    plt.legend()
+    plt.show()
+
 
 if __name__ == '__main__':
     main()
