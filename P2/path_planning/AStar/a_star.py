@@ -391,6 +391,8 @@ def main():
     plt.close()
 
     # for report
+    rx_all = rx_all + [way_x[-1]]
+    ry_all = ry_all + [way_y[-1]]
     newsx = (np.asarray(sx) - 180)/100
     newsy = (np.asarray(sy) - 180)/100
     ox = (np.asarray(ox) - 180)/100
@@ -406,6 +408,98 @@ def main():
     plt.ylabel('y[m]')
     plt.legend()
     plt.show()
+
+
+    print('rx_all:', rx_all)
+    print('ry_all:', ry_all)
+
+    plt.plot(ox, oy, ".k")
+    plt.plot(rx_all[:13], ry_all[:13], "-r",linewidth=3.0)
+    plt.grid(True)
+    plt.axis("equal")
+    plt.xlabel('x[m]')
+    plt.ylabel('y[m]')
+    # plt.legend()
+    # plt.show()
+    plt.savefig('path1')
+    plt.close()
+
+    plt.plot(ox, oy, ".k")
+    plt.plot(rx_all[12:14], ry_all[12:14], "-r",linewidth=3.0)
+    plt.grid(True)
+    plt.axis("equal")
+    plt.xlabel('x[m]')
+    plt.ylabel('y[m]')
+    # plt.legend()
+    # plt.show()
+    plt.savefig('path2')
+    plt.close()
+
+    plt.plot(ox, oy, ".k")
+    plt.plot(rx_all[13:21], ry_all[13:21], "-r",linewidth=3.0)
+    plt.grid(True)
+    plt.axis("equal")
+    plt.xlabel('x[m]')
+    plt.ylabel('y[m]')
+    # plt.legend()
+    # plt.show()
+    plt.savefig('path3')
+    plt.close()
+
+    plt.plot(ox, oy, ".k")
+    plt.plot(rx_all[20:22], ry_all[20:22], "-r",linewidth=3.0)
+    plt.grid(True)
+    plt.axis("equal")
+    plt.xlabel('x[m]')
+    plt.ylabel('y[m]')
+    # plt.legend()
+    # plt.show()
+    plt.savefig('path4')
+    plt.close()
+
+    plt.plot(ox, oy, ".k")
+    plt.plot(rx_all[21:38], ry_all[21:38], "-r",linewidth=3.0)
+    plt.grid(True)
+    plt.axis("equal")
+    plt.xlabel('x[m]')
+    plt.ylabel('y[m]')
+    # plt.legend()
+    # plt.show()
+    plt.savefig('path5')
+    plt.close()
+
+    plt.plot(ox, oy, ".k")
+    plt.plot(rx_all[37:39], ry_all[37:39], "-r",linewidth=3.0)
+    plt.grid(True)
+    plt.axis("equal")
+    plt.xlabel('x[m]')
+    plt.ylabel('y[m]')
+    # plt.legend()
+    # plt.show()
+    plt.savefig('path6')
+    plt.close()
+
+    plt.plot(ox, oy, ".k")
+    plt.plot(rx_all[38:54], ry_all[38:54], "-r",linewidth=3.0)
+    plt.grid(True)
+    plt.axis("equal")
+    plt.xlabel('x[m]')
+    plt.ylabel('y[m]')
+    # plt.legend()
+    # plt.show()
+    plt.savefig('path7')
+    plt.close()
+
+    plt.plot(ox, oy, ".k")
+    plt.plot(rx_all[53:55], ry_all[53:55], "-r",linewidth=3.0)
+    plt.grid(True)
+    plt.axis("equal")
+    plt.xlabel('x[m]')
+    plt.ylabel('y[m]')
+    # plt.legend()
+    # plt.show()
+    plt.savefig('path8')
+    plt.close()
 
 
 if __name__ == '__main__':
